@@ -4,7 +4,11 @@ This GitHub repository contains supplementary material and custom scripts used i
 
 ### Supplementary material:
 
+*Supplementary Info has information about the fossil calibrations and supplementary figures
 supplementary_info.pdf
+
+*Supplementary tables has Tables S1-S10
+supplementary_tables.pdf
 
 ### Data access:
 
