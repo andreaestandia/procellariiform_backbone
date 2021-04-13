@@ -2,7 +2,7 @@
 
 ## Remove Illumina adapters - Trimmomatic
 
-### Define your path
+#### Define path
 
 ```
 path=/ddn/data/xnvd74/seabird_project/Backbone/uce_analysis #main folder
@@ -11,7 +11,7 @@ cd $path
 mkdir cleaned #create a new dir for the trimmomatic analysis
 ```
 
-### Define the invariable parts of the illumina adapters
+#### Define the invariable parts of the illumina adapters
 
 ```
 i51=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
@@ -35,7 +35,7 @@ for file in *READ1.fastq.gz; do
 	i5barcode=$(echo $(zcat $file | grep "^@J00" | cut -d ":" -f 10 | sort | uniq -c | sort -r | head -1 | sed -E 's/[0-9]+ [A-Z]+\+([A-Z]+)/\1/'))
 	i7barcode=$(echo $(zcat $file | grep "^@J00" | cut -d ":" -f 10 | sort | uniq -c | sort -r | head -1 | sed -E 's/[0-9]+ ([A-Z]+)\+[A-Z]+/\1/'))
 	i5=$i51$i5barcode$i52
-i7=$i71$i7barcode$i72
+	i7=$i71$i7barcode$i72
 	i5revcomp=$(echo $i5 | rev | tr ATCG TAGC)
 	i7revcomp=$(echo $i7 | rev | tr ATCG TAGC)
 	cat $TruSeq3 > ../cleaned/$sample/adapters.fasta
@@ -50,8 +50,6 @@ done
 
 ## UCE contig assembly - Trinity
 
-### 
-
 ```
 #!/bin/bash
 #$ -V
@@ -64,12 +62,12 @@ done
 #SBATCH -a 1-35%10
 
 path=/ddn/data/sbvd77/UCE
-FILE=$(sed "${SLURM_ARRAY_TASK_ID}q;d" $path/info/list_samples_rest)
+FILE=$(sed "${SLURM_ARRAY_TASK_ID}q;d" $path/log/list_samples)
 
 module load dbl/phyluce/1.5.0
 export PATH=`echo ${PATH} | awk -v RS=: -v ORS=: '/jdk1.8.0/ {next} {print}'`
 
-phyluce_assembly_assemblo_trinity --config $path/info/$(echo ${FILE} | cut -d ":" -f1).conf --output $path/assemblies --subfolder split-adapter-quality-trimmed --cores 12 --clean --log-path $path/info/trinity_log &> $path/oe_files/trinity$SLURM_ARRAY_TASK_ID.log
+phyluce_assembly_assemblo_trinity --config $path/log/$(echo ${FILE} | cut -d ":" -f1).conf --output $path/assemblies --subfolder split-adapter-quality-trimmed --cores 12 --clean --log-path $path/log/trinity_log &> $path/oe_files/trinity$SLURM_ARRAY_TASK_ID.log
 ```
 
 ### Contigs to probes
@@ -111,7 +109,7 @@ phyluce_align_seqcap_align \
     --no-trim \
     --cores 12 \
     --incomplete-matrix \
-    --log-path $path/info/
+    --log-path $path/log/
 ```
 
 ### Gblocks trimming
@@ -122,7 +120,7 @@ phyluce_align_get_gblocks_trimmed_alignments_from_untrimmed \
     --output $path/alignments/dataset_out_trimmed/ \
     --b4 8 \
     --cores 12 \
-    --log-path $path/info/
+    --log-path $path/log/
 ```
 
 ### Contig dataset generation
@@ -159,7 +157,7 @@ phyluce_align_get_only_loci_with_min_taxa \
 ### Summary statistics 
 
 ```
-printf sample,contigs,total_bp,mean_length,95_CI_length,min_length,max_length,median_length,'contigs_>1kb''\n' > $path/info/get_fasta_lengths.tsv
+printf sample,contigs,total_bp,mean_length,95_CI_length,min_length,max_length,median_length,'contigs_>1kb''\n' > $path/log/get_fasta_lengths.tsv
 for i in $path/assemblies/contigs/*.fasta;do
   phyluce_assembly_get_fasta_lengths --input $i --csv >> $path/log/get_fasta_lengths.tsv
 done
