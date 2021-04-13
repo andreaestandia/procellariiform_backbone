@@ -14,6 +14,7 @@ Necessary programs:
 * DendroPy (https://dendropy.org)
 * IQTree (http://www.iqtree.org/)
 * BEAST  (https://beast.community/)
+* AMAS (https://github.com/marekborowiec/AMAS)
 * COEVOL 1.4b (https://megasun.bch.umontreal.ca/People/lartillot/www/downloadcoevol.html)
 
 ## Step 1: Partitioning 
@@ -123,37 +124,4 @@ Summarise a set of trees
 ```
 sumtrees.py --summary-target=mcct --burnin=200 --support-as-labels --output-tree-filepath=consensus_strict.tre *.tre
 ```
-
-## Step 7: Calculate GC content
-
-Calculate GC content per locus and concatenate the top 10% and bottom 10% using AMAS
-
-```
-import os
-import csv
-
-PATH = "/ddn/data/xnvd74/seabird_project/Backbone/uce-analysis/gc"
-
-
-# Prepare metadata
-summary_files = [file for file in os.listdir(PATH) if file.endswith('.out')]
-
-
-dic = {}
-for index, out in enumerate(summary_files):
-    summary_file = open(os.path.join(PATH, out), 'r')
-    data = [x.strip().split('\t') for x in summary_file.readlines()][1]
-    mat_cells = int(data[3])
-    c = int(data[13])
-    g = int(data[14])
-    dic[data[0]] = (c+g)/mat_cells
-
-
-with open("GC.txt", "w") as f:
-    writer = csv.writer(f, dialect="excel-tab")
-    for key, value in dic.items():
-        writer.writerow((key, value))
-```
-
-With these subsets I re-ran RAxML with the parameters above described above and concatenated them to run in Coevol 1.4b.
 
