@@ -1,9 +1,11 @@
-# Procellariiform backbone
+# Body Size, Population Size and Life History Traits Explain Little Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny
 
-Code for the manuscript: 
+This GitHub repository contains supplementary material and custom scripts used in the manuscript: Body Size, Population Size and Life History Traits Explain Little Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny
 
-Body Size, Population Size and Life History Traits Explain Little Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny
+### Supplementary material:
 
-Authors:
+supplementary_info.pdf
 
-Andrea Estandia, R. Terry Chesser, Helen F. James, Max A. Levy, Joan Ferrer Obiol, Vincent Bretagnolle, Andreanna J. Welch
+### Data access:
+
+Raw data from this study have been submitted to [NNNN]
