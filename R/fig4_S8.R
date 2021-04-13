@@ -1,6 +1,6 @@
 ##SCRIPT to make Figure S8 and Figure 4##
-
-setwd("/home/zoo/sjoh4959/Documents/projects/procellariiform_phylogeny/plots/coevol/")
+library(tidyverse)
+library(patchwork)
 text_size=12
 
 high_gc <- read_delim("high_gc.csv", delim="\t") %>% filter(true_false==FALSE)

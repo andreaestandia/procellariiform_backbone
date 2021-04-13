@@ -1,4 +1,3 @@
-#setwd("/home/zoo/sjoh4959/Documents/projects/procellariiform_phylogeny/phylo_path/")
 library(ape)
 library(phylopath)
 library(tidyverse)

@@ -1,5 +1,6 @@
-library("treeio")
-library("ggtree")
+library(treeio)
+library(ggtree)
+library(ape)
 
 tree <- read.beast("beast_random_UCE_timecalibrated.tre")
 

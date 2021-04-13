@@ -9,6 +9,7 @@ Necessary programs:
 * PartitionFinder (https://www.robertlanfear.com/partitionfinder/)
 * SWSC-EN (https://github.com/Tagliacollo/PFinderUCE-SWSC-EN)
 * RAxML (https://cme.h-its.org/exelixis/web/software/raxml/)
+* SortaDate (https://github.com/FePhyFoFum/SortaDate)
 * ASTRAL  (https://github.com/smirarab/ASTRAL)
 * Exabayes (https://cme.h-its.org/exelixis/web/software/exabayes)
 * DendroPy (https://dendropy.org)
@@ -64,6 +65,21 @@ raxmlHPC-PTHREADS-SSE3 -N autoMRE -m GTR -x $RANDOM -p $RANDOM -s $path/alignmen
 
 ```
 
+To create clock-like and non-clock-like subsets I used `SortaDate`:
+
+1. Get the root-to-tip variance with `python src/get_var_length.py $path/Genetree/input-nexus --flend .nexus --outf $path/sortadate/out/var --outg Cicoinia_maguari_USNM_614527,Spheniscus_demersus_USNM_631252,Sula_leucogaster_USNM_622596`
+2. Get the bipartition support with `python src/get_bp_genetrees.py $path/Genetree/input-nexus --flend .nexus --outf $path/sortadate/out/bp`
+3. Combine the results from these two runs with `python src/combine_results.py $path/sortadate/out/bp examples/bp --outf $path/sortadate/out/comb`
+4. Sort and get the list of the good genes with `python src/get_good_genes.py $path/sortadate/out/comb --max 3 --order 3,1,2 --outf $path/sortadate/out/gg`
+
+I kept the top 25% and bottom 25% and concatenated them using AMAS:
+
+`python AMAS.py concat -i $path/sortadate/high_gc -f phylip -u nexus -d dna`
+
+`python AMAS.py concat -i $path/sortadate/low_gc -f phylip -u nexus -d dna`
+
+I ran RAxML again with the same parameters.
+
 ## Step 3: Exabayes
 
 I ran two analyses: i) a partitioned analysis with the charsets produced by scheme 1 and the 95% matrix
@@ -92,7 +108,7 @@ input_RAxML.txt -bb 1000 -nt 20
 `raxml.pl` is a modified RAxML wrapper that can be found in the *src* folder. The flag –seqdir indicates the path to a folder where I had a nexus file per locus. –raxmldir indicates the output directory for the raxml runs and –astraldir for ASTRAL output
 
 ```bash
-raxml.pl --seqdir=/ddn/data/xnvd74/seabird_project/Backbone/uce-analysis/Genetree/input-nexus --raxmldir=raxml --astraldir=$path/astral/astral_all
+raxml.pl --seqdir=$path/Genetree/input-nexus --raxmldir=raxml --astraldir=$path/astral/astral_all
 raxml.pl --seqdir=$path/Genetree/input-nexus/top10 --raxmldir=raxml --astraldir=$path/astral/astral_top10
 ```
 
