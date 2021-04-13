@@ -31,3 +31,44 @@ nohup ./coevol -f -d coevol_high_gc.phy -t exabayes_tree.tre -cal calib.csv 61 6
 nohup ./coevol -f -d coevol_low_gc.phy -t exabayes_tree.tre -cal calib.csv 61 61 -c all_vars.csv -gc low_gc &
 ```
 
+### Create high and low GC content subsets
+
+Calculate GC content per locus using my custom script:
+
+```
+import os
+import csv
+
+PATH = "/ddn/data/xnvd74/seabird_project/Backbone/uce-analysis/gc"
+
+
+# Prepare metadata
+summary_files = [file for file in os.listdir(PATH) if file.endswith('.out')]
+
+
+dic = {}
+for index, out in enumerate(summary_files):
+    summary_file = open(os.path.join(PATH, out), 'r')
+    data = [x.strip().split('\t') for x in summary_file.readlines()][1]
+    mat_cells = int(data[3])
+    c = int(data[13])
+    g = int(data[14])
+    dic[data[0]] = (c+g)/mat_cells
+
+
+with open("GC.txt", "w") as f:
+    writer = csv.writer(f, dialect="excel-tab")
+    for key, value in dic.items():
+        writer.writerow((key, value))
+```
+
+Concatenate the top 10% and bottom 10% using AMAS (https://github.com/marekborowiec/AMAS):
+
+``` 
+python AMAS.py concat -i low_gc.phylip -f phylip -u phylip -d dna
+```
+
+``` 
+python AMAS.py concat -i high_gc.phylip -f phylip -u phylip -d dna
+```
+

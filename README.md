@@ -12,7 +12,7 @@ In the folder `R` you can find scripts for reproducing some figures and running 
 
 ### Supplementary material:
 
-* supplementary_info.pdf has information about the fossil calibrations and supplementary figures
+* `supplementary_info.pdf` has information about the fossil calibrations and supplementary figures
 
 * `supplementary_tables.xlxs` has Tables S1-S10
 
