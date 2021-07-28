@@ -1,6 +1,6 @@
-# Body Size, Population Size and Life History Traits Explain Little Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny
+# Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny is not Solely Explained by Body Mass, Flight Efficiency, Population Size or Life History Traits
 
-This GitHub repository contains supplementary material and custom scripts used in the manuscript: Body Size, Population Size and Life History Traits Explain Little Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny
+This GitHub repository contains supplementary material and custom scripts used in the manuscript: Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny is not Solely Explained by Body Mass, Flight Efficiency, Population Size or Life History Traits (https://www.biorxiv.org/content/10.1101/2021.07.27.453752v1)
 
 ### Scripts:
 
@@ -18,4 +18,4 @@ In the folder `R` you can find scripts for reproducing some figures and running 
 
 ### Data access:
 
-Raw data from this study have been submitted to [NNNN]
+All raw sequence data are archived on GenBank under the accession number PRJNA749710.

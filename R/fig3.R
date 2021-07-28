@@ -1,8 +1,9 @@
 library(treeio)
 library(ggtree)
 library(ape)
+library(paleotree)
 
-tree <- read.beast("beast_random_UCE_timecalibrated.tre")
+tree <- read.beast("/home/zoo/sjoh4959/Documents/projects/procellariiform_phylogeny/0.0_submission/supplementary/trees/beast_random_UCE_timecalibrated.tre")
 
 tree@phylo$root.time <- 60.5
 

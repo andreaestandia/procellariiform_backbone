@@ -267,7 +267,7 @@ ggsave(
 )
 
 
-total <- read.csv("total.csv") #%>% filter(true_false==TRUE)# %>% 
+total <- read.csv("/home/zoo/sjoh4959/Documents/projects/procellariiform_phylogeny/plots/total.csv") #%>% filter(true_false==TRUE)# %>% 
 
 afb <- total %>%
   ggplot(aes(x = log(avg_afb),
