@@ -1,21 +1,29 @@
+library(ggplot2)
 library(treeio)
 library(ggtree)
 library(ape)
 library(paleotree)
+library(deeptime)
 
-tree <- read.beast("/home/zoo/sjoh4959/Documents/projects/procellariiform_phylogeny/0.0_submission/supplementary/trees/beast_random_UCE_timecalibrated.tre")
+tree <-
+  read.beast("supplementary_material/3_trees/rooted/beast_UCE_calibrated.tre")
+traits <-
+  read_csv("supplementary_material/5_coevol/csv4plots/traits_fig3.csv") %>% 
+  rename(label = species)
 
-tree@phylo$root.time <- 60.5
+tree2 <- full_join(tree, traits, by = 'label')
 
-tree2 <- drop.tip(tree, c("Spheniscus_demersus_USNM_631252", "Cicoinia_maguari_USNM_614527", "Sula_leucogaster_USNM_622596"))
-
-ggtree(tree2, size=2.5)+
-geom_tree(aes(color=log(rate_median)), continuous = TRUE, size=2.5)  + 
-  geom_tree() + 
-  scale_colour_gradient2(midpoint=mean(log(tree2@data$rate_median)),
-                         low="#3B6290", 
-                         high="#FF863D")  + 
-  theme_tree(legend.position='none') + scale_x_continuous(labels=abs)# + geom_tiplab()
-tree@info
-
-write.beast(tree2, "fig3.tre")
+ggtree(tree2,
+       size = 2.5,
+       continuous = T,
+       mrsd = "2021-12-12") +
+  geom_tree(aes(color = rate_median, continuous = T), size = 2.5)  +
+  geom_tree() +
+  scale_colour_gradient2(
+    midpoint = median(tree2@data$rate_median, na.rm = T),
+    low = "#3B6290",
+    high = "#FF863D"
+  )  +
+  theme_tree2(legend.position = 'left') + ggnewscale::new_scale_colour()  +
+  geom_tippoint(aes(col = discr_mass, size = 2)) +
+  scale_colour_viridis_c()
