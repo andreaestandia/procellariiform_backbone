@@ -10,25 +10,25 @@ To explore the relationships between substitution rates, body size, life history
 **Subset 1**: All variables and an alignment with random UCEs
 
 ``` 
-nohup ./coevol -f -d coevol_alignment.nex -t exabayes_unpartitioned_75.tre -fixbl -c all_vars.csv all_vars &
+nohup ./coevol -f -d coevol_alignment.nex -t beast_UCE_calibrated.tre -fixbl -c all_vars.csv all_vars &
 ```
 
 **Subset 2**: Only AFB and body size and an alignment with random UCEs
 
 ```
-nohup ./coevol -f -d coevol_alignment.nex -t exabayes_unpartitioned_75.tre -fixbl -c afb_body.csv afb_body &
+nohup ./coevol -f -d coevol_alignment.nex -t beast_UCE_calibrated.tre -fixbl -c afb_body.csv afb_body &
 ```
 
 **Subset 3**: All variables and an alignment with only UCE with high GC content
 
 ```
-nohup ./coevol -f -d coevol_high_gc.phy -t exabayes_tree.tre -fixbl -c all_vars.csv -gc high_gc &
+nohup ./coevol -f -d coevol_high_gc.phy -t beast_UCE_calibrated -fixbl -c all_vars.csv -gc high_gc &
 ```
 
 **Subset 4**: All variables and an alignment with only UCE with low GC content
 
 ```
-nohup ./coevol -f -d coevol_low_gc.phy -t exabayes_tree.tre -fixbl -c all_vars.csv -gc low_gc &
+nohup ./coevol -f -d coevol_low_gc.phy -t beast_UCE_calibrated -fixbl -c all_vars.csv -gc low_gc &
 ```
 
 ### Create high and low GC content subsets
