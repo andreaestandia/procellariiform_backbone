@@ -1,6 +1,6 @@
 # Correlates of Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny 
 
-This GitHub repository contains supplementary material and custom scripts used in the manuscript: Correlated of Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny
+This GitHub repository contains supplementary material and custom scripts used in the manuscript: Correlates of Substitution Rate Variation in a Robust Procellariiform Seabird Phylogeny
 
 Preprint: https://www.biorxiv.org/content/10.1101/2021.07.27.453752v1
 
